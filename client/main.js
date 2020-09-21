@@ -1,17 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter , Route, Switch} from "react-router-dom";
 
 import App from "./components/App";
-import {Bins} from '../imports/collections/Bins';
+import BinsMain from "./components/bins/BinsMain";
+import BinsList from "./components/bins/BinsList";
+import { Bins } from "../imports/collections/Bins";
 
 const routes = (
   <BrowserRouter>
-    <Route path='/' component={App}></Route>
+    <div>
+      <App />
+      <Switch>
+        <Route exact path="/" component={BinsList}  />
+        <Route path="/bins/:binId" component={BinsMain} />
+      </Switch>
+    </div>
   </BrowserRouter>
 );
 
 Meteor.startup(() => {
-  ReactDOM.render(routes, document.querySelector('.render-target'));
+  ReactDOM.render(routes, document.querySelector(".render-target"));
 });
